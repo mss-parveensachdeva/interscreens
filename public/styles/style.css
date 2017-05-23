@@ -1,0 +1,127 @@
+/* CSS used here will be applied after bootstrap.css */
+
+body { 
+ background: #fff; 
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+
+.panel-default {
+ opacity: 0.9;
+ margin-top:30px;
+}
+.form-group.last {
+ margin-bottom:0px;
+}
+
+.label-holder {
+	margin: 8px 8px;
+	text-align: left;
+}
+
+.label-holder a {
+	width: 60%;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+	position: absolute;
+    top: 40%;
+    left: 45%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.editForm {
+    padding: 25px 0;
+}
+
+.timeout_list_border {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 25px;
+    width: 95%;
+}
+.form-container {
+    margin: 25px;
+    width: 85%;
+}
+
+.form-group {
+    margin: 15px;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.input-control {
+    margin: 5px 0;
+    width: 60%;
+	float: left;
+}
+
+.button-control {
+    float: left;
+    margin: 5px 10px;
+    width: 35%;
+}
+
+.col-sm-4 > .back-button {
+	float: right !important
+}
+
+.button-holder {
+    padding: 3px;
+    text-align: center;
+    width: 100%;
+}
+
+.button-holder > a {
+    width: 100%;
+}
+
+.panel-heading {
+    text-align: center;
+}
+
+.panel-default.pullright {
+    text-align: right;
+}
+
+.pulldown {
+    margin-top: 15px;
+}
+
+.col-sm-4.pullright {
+    text-align: right;
+}
+
+.col-sm-4.align {
+    margin-top: 25px;
+}

@@ -1,0 +1,129 @@
+
+<div class="col-lg-12">
+	<div class="row">
+		<div class="col-md-9"></div>
+		<div class="col-md-3"><a ui-sref="edit_record" class="btn btn-warning">Back</a></div>
+	</div>
+	<div class="row" ng-if="record.table_name === 'template'">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading"> <strong class="">Record template screen.</strong></div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" name="myForm" sf-schema="record.schema" sf-form="record.form" sf-model="record.model" ></form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+	<div class="row" ng-if="record.table_name === 'task_table'">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading"> <strong class="">Record template screen.</strong></div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" name="myForm" sf-schema="record.schema" sf-form="record.form" sf-model="record.model" ng-submit="record.obsubmit(record.model)"></form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+	<div class="row" ng-if="record.table_name === 'users'">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading"> <strong class="">Record template screen.</strong></div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" name="myForm" sf-schema="record.schema" sf-form="record.form" sf-model="record.model" ng-submit="record.obsubmit(record.model)"></form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+	<div class="row" ng-if="record.table_name === 'timeout'">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading"> <strong class="">Record template screen.</strong></div>
+					<div class="panel-body">
+						<!--<form class="form-horizontal" role="form" name="myForm" sf-schema="record.schema" sf-form="record.form" sf-model="record.model" ng-submit="record.obsubmit(record.model)"></form>-->
+						<form class="form-horizontal" role="form" ng-submit="record.obsubmit(record.model)">
+							<div class="form-group">
+								<label class="control-label">Id</label>
+								<input class="form-control" ng-model="record.model._id" readonly="readonly" />
+							</div>
+							<div class="form-group">
+								<label class="control-label">Name</label>
+								<input class="form-control" ng-model="record.model.name" placeholder="Timeout name"/>
+							</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<label class="control-label">Timeout list</label>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Delivery count</label>
+									<select class="form-control" ng-model="record.selectedValue" ng-change="record.selectTimeoutObj(record.selectedValue)">
+										<option ng-repeat="i in record.timeout_count track by $index">{{i}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Delivery status</label>
+									<input class="form-control" ng-model="record.timeout_content.delivery_status" placeholder="Delivery status"/>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Delivery user</label>
+									<input class="form-control" ng-model="record.timeout_content.delivery_user_ids" placeholder="Delivery user"/>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Delivery via</label>
+									<select class="form-control" ng-model="record.timeout_content.delivery_via">
+										<option value="">Select</option>
+										<option value="app">App</option>
+										<option value="email">Email</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Delivery task</label>
+									<input class="form-control" ng-model="record.timeout_content.delivery_task_id" placeholder="Delivery task"/>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Message id</label>
+									<input class="form-control" ng-model="record.timeout_content.message_id" placeholder="Message Id"/>
+								</div>
+								<div class="form-group">
+									<label class="control-label">From user</label>
+									<input class="form-control" ng-model="record.timeout_content.from_user_id" placeholder="From user"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="submit" value="Save" class="btn btn-primary" readonly="readonly"  disabled />
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+	<div class="row" ng-if="record.table_name === 'location'">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading"> <strong class="">Record template screen.</strong></div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" name="myForm" sf-schema="record.schema" sf-form="record.form" sf-model="record.model" ng-submit="record.obsubmit(record.model)"></form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+</div>

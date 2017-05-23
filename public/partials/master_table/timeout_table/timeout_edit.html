@@ -1,0 +1,105 @@
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div class="panel panel-default">
+			<div class="panel-heading"> <strong class="">Edit timeout screen.</strong></div>
+			<div class="panel-body">
+				<!--<form class="form-horizontal" role="form" name="myForm" sf-schema="EC.schema" sf-form="EC.form" sf-model="EC.model" ng-submit="EC.obsubmit(EC.model)"></form>-->
+				<form class="form-horizontal" role="form" ng-submit="EC.obsubmit(EC.edit_detail)">
+					<div class="form-group">
+						<label class="control-label">Id</label>
+						<input class="form-control" ng-model="EC.edit_detail._id" readonly="readonly" />
+					</div>
+					<div class="form-group">
+						<label class="control-label">Name</label>
+						<input class="form-control" ng-model="EC.edit_detail.name" placeholder="Timeout name"/>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="control-label">Timeout list</label>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Delivery count</label>
+							<select class="form-control" ng-model="EC.selectedValue" ng-change="EC.selectTimeoutObj(EC.selectedValue)">
+								<option ng-repeat="i in EC.timeout_count track by $index">{{i}}</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Delivery status</label>
+							<input class="form-control" ng-model="EC.timeout_content.delivery_status" placeholder="Delivery status"/>
+						</div>
+						<div class="form-group col-sm-12">
+							<div class="col-sm-8">
+								<label class="control-label">Delivery user</label>
+								<input class="form-control" ng-model="EC.timeout_content.delivery_user_ids" placeholder="Delivery user"/>
+							</div>
+							<div class="col-sm-4 align">
+								<div class="col-sm-6">
+									<a ui-sref="show_record({data: {from_id: EC.edit_detail._id, from_table: 'timeout', to_table: 'users', to_id: EC.timeout_content.delivery_user_ids, isSelected: false }})" class="btn btn-primary">Record</a>
+								</div>
+								<div class="col-sm-6">
+									<a ui-sref="list_record({data: {from_id: EC.edit_detail._id, from_table: 'timeout', from_field: 'delivery_user_ids', to_table: 'users', to_id: null, isSelected: false }})" class="btn btn-success">List</a>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Delivery via</label>
+							<select class="form-control" ng-model="EC.timeout_content.delivery_via">
+								<option value="">Select</option>
+								<option value="app">App</option>
+								<option value="email">Email</option>
+							</select>
+						</div>
+						<div class="form-group col-sm-12">
+							<div class="col-sm-8">
+								<label class="control-label">Delivery task</label>
+								<input class="form-control" ng-model="EC.timeout_content.delivery_task_id" placeholder="Delivery task"/>
+							</div>
+							<div class="col-sm-4 align">
+								<div class="col-sm-6">
+									<a ui-sref="show_record({data: {from_id: EC.edit_detail._id, from_table: 'timeout', to_table: 'task_table', to_id: EC.timeout_content.delivery_task_id, isSelected: false }})" class="btn btn-primary">Record</a>
+								</div>
+								<div class="col-sm-6">
+									<a ui-sref="list_record({data: {from_id: EC.edit_detail._id, from_table: 'timeout', from_field: 'delivery_task_id', to_table: 'task_table', to_id: null, isSelected: false }})" class="btn btn-success">List</a>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-sm-12">
+							<div class="col-sm-8">
+								<label class="control-label">Message id</label>
+								<input class="form-control" ng-model="EC.timeout_content.message_id" placeholder="Message Id"/>
+							</div>
+							<div class="col-sm-4 align">
+								<div class="col-sm-6">
+									<a ui-sref="show_record({data: {from_id: EC.edit_detail._id, from_table: 'timeout', to_table: 'template', to_id: EC.timeout_content.message_id, isSelected: false }})" class="btn btn-primary">Record</a>
+								</div>
+								<div class="col-sm-6">
+									<a ui-sref="list_record({data: {from_id: EC.edit_detail._id, from_table: 'timeout', from_field: 'message_id', to_table: 'template', to_id: null, isSelected: false }})" class="btn btn-success">List</a>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-sm-12">
+							<div class="col-sm-8">
+								<label class="control-label">From user</label>
+								<input class="form-control" ng-model="EC.timeout_content.from_user_id" placeholder="From user"/>
+							</div>
+							<div class="col-sm-4 align">
+								<div class="col-sm-6">
+									<a ui-sref="show_record({data: {from_id: EC.edit_detail._id, from_table: 'timeout', to_table: 'users', to_id: EC.timeout_content.from_user_id, isSelected: false }})" class="btn btn-primary">Record</a>
+								</div>
+								<div class="col-sm-6">
+									<a ui-sref="list_record({data: {from_id: EC.edit_detail._id, from_table: 'timeout', from_field: 'from_user_id', to_table: 'users', to_id: null, isSelected: false }})" class="btn btn-success">List</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Save" class="btn btn-primary" />
+							   
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2"></div>
+</div>

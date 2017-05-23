@@ -1,0 +1,56 @@
+<div class="col-lg-12" ng-init="LC.get_list()">
+	<div class="row">
+		<div class="col-sm-4"><a ui-sref="tables" class="btn btn-warning pulldown">Back</a></div>
+		<div class="col-sm-4"><h2>List of Master table</h2></div>
+		<div class="col-sm-4 pullright"><a href="javascript:void(0);" ng-click="LC.logout()" class="btn btn-danger pulldown">Logout</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4"><h5>Filters</h5></div>
+		<div class="col-sm-4"></div>
+		<!--<div class="col-sm-4"><a class="back-button btn btn-warning" ui-sref="listing">Back</a></div>-->
+	</div>
+	<div class="row">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Sr</th>
+						<th>Table</th>
+						<th>Name</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+						<tr ng-repeat="data in LC.master_table | startFrom: LC.currentPage * LC.pageSize | limitTo:LC.pageSize ">
+						<!--<td><input type="checkbox" checklist-model="LC.selctedIds" checklist-value="data._id" /></td>-->
+						<td>{{$index + 1}}</td>
+						<td>{{data.table}}</td>
+						<td><show-name data="data"></show-name></td>
+						<td><a ui-sref="edit_record({detail: data})">Edit</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="pagination">
+					<button class="btn btn-primary" ng-disabled="LC.currentPage == 0" ng-click="LC.currentPage = LC.currentPage-1">
+						Previous
+					</button>
+					{{LC.currentPage+1}}/{{LC.numberOfPages()}}
+					<button class="btn btn-primary" ng-disabled="LC.currentPage >= LC.master_table.length/LC.pageSize - 1" ng-click="LC.currentPage = LC.currentPage+1">
+						Next
+					</button>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-6"></div>
+				<div class="col-sm-6">
+					<div class="pagination">
+						<a class="btn btn-success" ui-sref="add_record">Add New</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

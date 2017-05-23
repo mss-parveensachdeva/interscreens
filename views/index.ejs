@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="listingAppModule">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Listingapp screen" />
+    <meta name="author" content="Roger Colburn" />
+	
+    <title>Listing app</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="styles/bootstrap.min.css" rel="stylesheet" />
+	<!-- ng-toast css -->
+	<link href="styles/ngToast.min.css" rel="stylesheet" />
+	<link href="styles/ngToast-animations.min.css" rel="stylesheet" />
+	
+	<!-- Custom style css -->
+    <link href="styles/style.css" rel="stylesheet" />
+	
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="ie-dependencies/html5shiv.js"></script>
+        <script src="ie-dependencies/respond.min.js"></script>
+    <![endif]-->
+	
+</head>
+
+<body>
+	<toast></toast>
+	<div id="overlay" ng-show="loaderIsDisplay"><div class="loader"></div></div>
+    <div class="container"><div ui-view></div></div>
+
+	<!-- jQuery and others library code start from here.. -->
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+	<script type="text/javascript" src="lib/angularui-route.min.js"></script>
+	<script type="text/javascript" src="lib/angular-animate.min.js"></script>
+	<script type="text/javascript" src="lib/angular-sanitize/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="lib/ngToast.min.js"></script>
+	<script type="text/javascript" src="lib/tv4/tv4.js"></script>
+	<script type="text/javascript" src="lib/objectpath/lib/ObjectPath.js"></script>
+	<script type="text/javascript" src="lib/angular-schema-form/dist/schema-form.js"></script>
+	<script type="text/javascript" src="lib/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
+	
+	<!-- custom js code starts from here -->
+	<script type="text/javascript" src="custom/app.js"></script>
+	<script type="text/javascript" src="custom/factory/localStorage.js"></script>
+	<script type="text/javascript" src="custom/factory/loaderService.js"></script>
+	<script type="text/javascript" src="custom/factory/safeApply.js"></script>
+	<script type="text/javascript" src="custom/service/angularFormSchema.js"></script>
+	<script type="text/javascript" src="custom/service/editFromSchema.js"></script>
+	<script type="text/javascript" src="custom/service/recordListSchema.js"></script>
+	<script type="text/javascript" src="custom/controller/error/ErrorController.js"></script>
+	<script type="text/javascript" src="custom/controller/login/LoginController.js"></script>
+	<script type="text/javascript" src="custom/controller/login/TableController.js"></script>
+	<script type="text/javascript" src="custom/controller/listing/ListingController.js"></script>
+	<script type="text/javascript" src="custom/controller/listing/showRecordController.js"></script>
+	<script type="text/javascript" src="custom/controller/listing/listRecordController.js"></script>
+	<script type="text/javascript" src="custom/controller/listing/EditController.js"></script>
+	<script type="text/javascript" src="custom/controller/listing/AddRecordController.js"></script>
+</body>
+
+</html>
