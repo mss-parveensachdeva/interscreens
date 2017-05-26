@@ -1,42 +1,46 @@
-
-# Getting started with Node.js on Bluemix
+# DoMeNow app Internal screens
 By following this guide, you'll set up a development environment, deploy an app locally and on Bluemix, and integrate a Bluemix database service in your app.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/IBM-Bluemix/get-started-java/master/docs/GettingStarted.gif" width="300">
-</p>
-
 ## Prerequisites
-
+          
 You'll need a [Bluemix account](https://console.ng.bluemix.net/registration/), [Git](https://git-scm.com/downloads) [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads) and [Node](https://nodejs.org/en/)
 
-## 1. Clone the sample app
+* [Clone the internal screen app](#clone_internal_screens) 
+* [Run the app locally](#run_app_locally)
+* [Prepare the app for deployment](#prepare_app_deployment)
+* [Add a database](#add_a_data)
+* [Use the database](#user_database_app)
+                 
+<a name="clone_internal_screens"></a>
+## 1. Clone the internal screen app
 
-Now you're ready to start working with the simple Node.js *hello world* app. Clone the repository and change to the directory to where the sample app is located.
+Now you're ready to start working with the DoMeNow internal screen Node.js app. Clone the repository and change to the directory to where the sample app is located.
   ```
-  git clone https://github.com/IBM-Bluemix/get-started-node
-  ```
-
-  ```
-  cd get-started-node
+  git clone https://github.com/mss-parveensachdeva/interscreens.git
   ```
 
-  Peruse the files in the *get-started-node* directory to familiarize yourself with the contents.
+  ```
+  cd interscreens
+  ```
 
+  Peruse the files in the *interscreens* directory to familiarize yourself with the contents.
+
+<a name="run_app_locally"></a>
 ## 2. Run the app locally
 
 Install the dependencies listed in the [package.json](https://docs.npmjs.com/files/package.json) file to run the app locally.  
   ```
-  npm install
+  npm install --save
   ```
 
 Run the app.
   ```
-  npm start  
+  npm start or node server.js  
   ```
 
 View your app at: http://localhost:3000
 
+<a name="prepare_app_deployment"></a>
 ## 3. Prepare the app for deployment
 
 To deploy to Bluemix, it can be helpful to set up a manifest.yml file. One is provided for you with the sample. Take a moment to look at it.
@@ -44,9 +48,9 @@ To deploy to Bluemix, it can be helpful to set up a manifest.yml file. One is pr
 The manifest.yml includes basic information about your app, such as the name, how much memory to allocate for each instance and the route. In this manifest.yml **random-route: true** generates a random route for your app to prevent your route from colliding with others.  You can replace **random-route: true** with **host: myChosenHostName**, supplying a host name of your choice. [Learn more...](https://console.bluemix.net/docs/manageapps/depapps.html#appmanifest)
  ```
  applications:
- - name: nodejs-helloworld
+ - name: listingapp
    random-route: true
-   memory: 128M
+   memory: 256M
  ```
 
 ## 4. Deploy the app
@@ -86,6 +90,7 @@ cf apps
 command to view your apps status and see the URL.
 
 
+<a name="add_a_data"></a>
 ## 5. Add a database
 
 Next, we'll add a NoSQL database to this application and set up the application so that it can run locally and on Bluemix.
@@ -94,11 +99,12 @@ Next, we'll add a NoSQL database to this application and set up the application 
 2. Select `Cloudant NoSQL DB` and Create the service.
 3. Select `Restage` when prompted. Bluemix will restart your application and provide the database credentials to your application using the `VCAP_SERVICES` environment variable. This environment variable is only available to the application when it is running on Bluemix.
 
+<a name="user_database_app"></a>
 ## 6. Use the database
 
 We're now going to update your local code to point to this database. We'll create a json file that will store the credentials for the services the application will use. This file will get used ONLY when the application is running locally. When running in Bluemix, the credentials will be read from the VCAP_SERVICES environment variable.
 
-1. Create a file called `vcap-local.json` in the `nodejs-helloworld` directory with the following content:
+1. Update a file called `config.json` in the `/root/interscreens/config/config.json` directory with the following content:
   ```
   {
     "services": {
@@ -116,7 +122,7 @@ We're now going to update your local code to point to this database. We'll creat
 
 2. Back in the Bluemix UI, select your App -> Connections -> Cloudant -> View Credentials
 
-3. Copy and paste just the `url` from the credentials to the `url` field of the `vcap-local.json` file.
+3. Copy and paste just the `url` from the credentials to the `url` field of the `config.json` file.
 
 4. Run your application locally.
   ```
@@ -131,3 +137,4 @@ We're now going to update your local code to point to this database. We'll creat
   ```
   cf push
   ```
+     
