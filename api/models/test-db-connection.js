@@ -3,7 +3,7 @@ var path  = require('path');
 
 var vcapLocal, cloudant;
 try {
-	vcapLocal = require(path.join(__dirname,'../../config/config.json'));
+	vcapLocal = require(path.join(__dirname,'../../config/test-db-config.json'));
 	//console.log("vcapLocal >>>", vcapLocal);
 } catch (e) {
 	console.log("unable to load local configurations", e);
@@ -21,7 +21,7 @@ if (appEnv.vcap.services.cloudantNoSQLDB) {
 	// Initialize database with credentials
 	cloudant = CloudantModule(appEnv.vcap.services.cloudantNoSQLDB[0].credentials);
 } else {
-	console.log("Please check your configuration file" , path.join(__dirname,'../../config/config.json'), JSON.stringify(appEnv));
+	console.log("Please check your configuration file" , path.join(__dirname,'../../config/test-db-config.json'), JSON.stringify(appEnv));
 	throw new Error('Unabel to load both the database configurations');	
 }
 

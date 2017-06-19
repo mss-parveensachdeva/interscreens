@@ -1,7 +1,10 @@
 (function(app, undefined){
-	app.controller('EditListingController', EditListingControllerMethod);
+	app
+	.controller('EditListingController', EditListingControllerMethod)
+	.directive('formatHtml', formatHtmlDirectiveMethod);
 	
 	EditListingControllerMethod.$inject = ['$scope', 'EDIT_FORM_SCHEMA', '$state', 'loaderService', '$http', 'ngToast', 'LocalStorage', 'edit_data'];
+	formatHtmlDirectiveMethod.$inject   = ['$sce'];
 	
 	function EditListingControllerMethod($scope, EDIT_FORM_SCHEMA, $state, loaderService, $http, ngToast, LocalStorage, edit_data){
 		var vm = this ;
@@ -18,6 +21,12 @@
 					return obj ;
 				}
 			}else{
+				if(obj.phone){
+					if(typeof obj.phone === "string"){
+						obj.phone = parseInt(obj.phone);
+					}
+				}
+				
 				return obj;
 			}
 		};
@@ -81,6 +90,7 @@
 			}
 		};
 		
+		console.log("edit_data >>", edit_data );
 		vm.edit_detail = vm.setDataDynamic(edit_data) ;
 		vm.timeout_content = vm.setContent(vm.edit_detail);
 		vm.selectedValue = 0 ;
@@ -110,5 +120,27 @@
 		vm.selectTimeoutObj = function(value){
 			vm.timeout_content = vm.edit_detail.timeout_list[value];
 		};
+	}
+	
+	function formatHtmlDirectiveMethod($sce){
+		return {
+			restrict : "E"	,
+			replace  : true ,
+			scope    : {
+				data : "="
+			},
+			template : '<textarea ng-bind="htmlContent" cols="75" rows="15"></textarea>',
+			link     : function(scope){
+				scope.setHtmlContent = function(data){
+					scope.htmlContent = $sce.trustAsHtml(data);	
+				};
+				
+				scope.$watch('data', function(n){
+					if(n){
+						scope.setHtmlContent(n);
+					}
+				});
+			}
+		};	
 	}
 })(app);

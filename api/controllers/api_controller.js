@@ -1,7 +1,46 @@
-var master_table = require('../models/master_table'),
-	_			 = require('lodash');
+var	master_table = require('../models/default_master_table'),
+	_			 = require('lodash'),
+	path 		 = require('path'),
+	config		 = require(path.join(__dirname,'../../config/default-db-config.json'));
+	pkgcloud     = require('pkgcloud');
 
 module.exports = {
+	serDefaultDbConnection: function(req, res){
+		var params = req.params;
+		
+		if(_.isEmpty(params)) return res.status(400).json({status:400, error: true, msg: "Request params are missing.", data: null});
+		if(_.isEmpty(params.db_name)) return res.status(400).json({status:400, error: true, msg: "Request params db_name are missing.", data: null});
+		
+		switch(params.db_name){
+			case "default":
+				console.log("Comes in Default case");
+				msater_table = {};
+				master_table = require('../models/default_master_table');
+				break;
+			case "dev":
+				console.log("Comes in dev case");
+				msater_table = {};
+				master_table = require('../models/dev_master_table');
+				break;
+			case "live":
+				console.log("Comes in live case");
+				msater_table = {};
+				master_table = require('../models/live_master_table');
+				break;
+			case "test":
+				console.log("Comes in test case");
+				msater_table = {};
+				master_table = require('../models/test_master_table');
+				break;
+			default:
+				console.log("Comes in Unmatched case");
+				msater_table = {};
+				master_table = require('../models/default_master_table');
+				break;
+		}
+		
+		return res.status(200).json({status: 200, error: false, msg: "Database set successfully", data: master_table});
+	},
 	record_by_id: function(req, res){
 		var params = req.params;
 		if(!params.table_name) return res.status(400).json({status: 400, error: true, msg:"`table_name` must be required", data: null});
@@ -57,6 +96,35 @@ module.exports = {
 		master_table.insert(body, function(err, updated_content){
 			if(err) return res.status(500).json(err);
 			return res.status(200).json(updated_content);
+		});
+	},
+	
+	mediaUploadServer: function(req, res){
+		console.log("configuration is as follows", config.IBM_STORAGE_OBJECT_CREDENTAILS);
+		//var client = pkgcloud.storage.createClient(config.IBM_STORAGE_OBJECT_CREDENTAILS);
+		//client.auth(function(err) {
+		//	if (err) {
+		//		return res.status(401).json({status: 401, error: true, msg: "Un-authorized access to upload media.", data: err});
+		//	}else {
+		//		console.log("IBM Storage Object Authenticated successfully!!!!!");
+		//		//console.log(storageClient._identity);
+		//		return res.status(200).json({status: 200, data: "Testing data right now."});
+		//	}
+		//});
+		req.file('file')
+		.upload({
+		  adapter: require("skipper-openstack"),
+		  credentials: config.IBM_STORAGE_OBJECT_CREDENTAILS,
+		  container: config.STORAGE_CONTAINER
+		}, function (err, uploadedFiles) {
+			if (err) {
+				console.log(err);
+				return res.status(401).json({status: 401, error: true, msg: "Un-authorized access to upload media.", data: err});
+			}
+			else {
+				console.log("uploadedFiles >>>", uploadedFiles);
+				return res.status(200).json({status: 200, data: "Testing data right now."});
+			}
 		});
 	}
 } ;

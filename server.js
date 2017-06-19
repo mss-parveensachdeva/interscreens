@@ -7,6 +7,7 @@ var express         = require("express"),
 
 app.use(express.static(path.join(__dirname,'public')));
 app.set('views', path.join(__dirname,'views')); //set default view path for routes
+app.use(require("skipper")()); //use skipper as default mdule for file upload
 app.set('view engine', 'ejs'); //set default template engine
 app.engine('.html', require('ejs').renderFile);
 app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));

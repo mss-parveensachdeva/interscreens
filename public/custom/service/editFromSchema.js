@@ -33,9 +33,20 @@
 						title: "Email",
 					},
 					type: {
-					  type: "string",
-					  enum: ['public','admin'],
-					  default: 'public'
+					  //type: "string",
+					  type: "object",
+					  properties:{
+						public: {
+							type: "string",
+							title: "Public",
+							readonly: true 
+						},
+						admin: {
+							type: "string",
+							title: "Admin",
+							readonly: true 
+						}
+					  }
 					},
 					image : {
 						type: "string",
@@ -47,7 +58,7 @@
 						readOnly: true
 					},
 					security_level : {
-						type: "string",
+						type: "number",
 						title: "Security level",
 						readOnly: true
 					}
@@ -199,6 +210,25 @@
 					task_name : {
 						type: "string",
 						title: "Task name"
+					},
+					page_id: {
+						type: "number",
+						title: "Page Id"
+					},
+					from_page_id: {
+						type: "number",
+						title: "From Page Id"
+					},
+					parent_id: {
+						type: "string",
+						title: "Parent Id",
+						format : "editfield",
+						readOnly: true,
+						from_id : doc._id ,
+						from_table: doc.table,
+						from_field: "parent_id",
+						to_table : "task_table",
+						to_id : doc.parent_id ? doc.parent_id : null 
 					},
 					header_template_id: {
 						type: "string",

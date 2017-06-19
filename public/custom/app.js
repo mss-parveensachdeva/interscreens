@@ -152,6 +152,13 @@ var app = angular.module('listingAppModule', ['ui.router', 'schemaForm', 'ngToas
 			controllerAs: 'AR',
 			resolve: {}
 		})
+		.state('testMediaUpload', {
+			url: '/media',
+			templateUrl: 'partials/media/media.html',
+			controller: 'MediaController',
+			controllerAs: 'MC',
+			resolve: {}
+		})
 		.state('404', {
 			templateUrl: 'partials/error/error-page-tmpl.html',
 			controller: 'ErrorPageController',

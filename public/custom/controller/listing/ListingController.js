@@ -83,7 +83,7 @@
 						scope.renderName = scope.data.userId || 'N/A' ;
 						break;
 					case "users" :
-						scope.renderName = scope.data.first_name || 'N/A' ;
+						scope.renderName = scope.data.virtual_phone || 'N/A' ;
 						break;
 					case "timeout" :
 						scope.renderName = scope.data.name || 'N/A';

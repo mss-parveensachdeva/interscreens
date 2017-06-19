@@ -1,0 +1,26 @@
+{
+  "services": {
+    "cloudantNoSQLDB": [
+      {
+        "credentials": {
+          "url":"https://06d2d430-fcd6-4036-a056-d04426eeecec-bluemix:729ae1b6dae17e178ac0a5b2a286538fa77602c35260acf1da53f71b30989718@06d2d430-fcd6-4036-a056-d04426eeecec-bluemix.cloudant.com"
+        },
+        "label": "cloudantNoSQLDB"
+      }
+    ]
+  },
+  "IBM_STORAGE_OBJECT_CREDENTAILS": {
+    "provider": "openstack",
+    "useServiceCatalog": true,
+    "useInternal": false,
+    "keystoneAuthVersion": "v3",
+    "authUrl": "https://identity.open.softlayer.com",  
+    "tenantId": "9ea33c0fee2142c5abbf5a59eda4832d",    
+    "domainId": "ca514903f45a4b01916aa7c23a9fba24",    
+    "username": "admin_0cb98a1688299c14174cd1a2d218b6055c3f9187", 
+    "password": "p7w.64Eqb4{6I(.j", 
+    "region": "dallas"   
+  },
+  "STORAGE_CONTAINER": "DoMeNowApp",
+  "MEDIA_URL": "https://dal.objectstorage.open.softlayer.com/v1/AUTH_9ea33c0fee2142c5abbf5a59eda4832d/DoMeNowApp/"
+}

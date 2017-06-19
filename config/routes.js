@@ -1,5 +1,12 @@
 var master_table = require('../api/controllers/api_controller');
 module.exports = function(router){
+	router.get('/api/db_connection/:db_name', function(req, res){
+		return master_table.serDefaultDbConnection(req, res);	
+	});
+	
+	router.post('/api/mediaServer/upload', function(req, res){
+		return master_table.mediaUploadServer(req, res);
+	});
 	
 	router.get('/api/record_by_id/:table_name/:id', function(req, res){
 		return master_table.record_by_id(req, res);

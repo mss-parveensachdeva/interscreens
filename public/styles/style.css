@@ -125,3 +125,8 @@ body {
 .col-sm-4.align {
     margin-top: 25px;
 }
+
+.pull-down {
+    float: left;
+    padding-top: 35px;
+}
