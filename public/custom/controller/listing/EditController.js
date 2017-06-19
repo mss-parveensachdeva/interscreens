@@ -1,12 +1,10 @@
 (function(app, undefined){
 	app
-	.controller('EditListingController', EditListingControllerMethod)
-	.directive('formatHtml', formatHtmlDirectiveMethod);
+	.controller('EditListingController', EditListingControllerMethod);
 	
-	EditListingControllerMethod.$inject = ['$scope', 'EDIT_FORM_SCHEMA', '$state', 'loaderService', '$http', 'ngToast', 'LocalStorage', 'edit_data'];
-	formatHtmlDirectiveMethod.$inject   = ['$sce'];
+	EditListingControllerMethod.$inject = ['$scope', 'EDIT_FORM_SCHEMA', '$state', 'loaderService', '$http', 'ngToast', 'LocalStorage', 'edit_data', '$sce'];
 	
-	function EditListingControllerMethod($scope, EDIT_FORM_SCHEMA, $state, loaderService, $http, ngToast, LocalStorage, edit_data){
+	function EditListingControllerMethod($scope, EDIT_FORM_SCHEMA, $state, loaderService, $http, ngToast, LocalStorage, edit_data, $sce){
 		var vm = this ;
 		vm.timeout_count = [] ;
 		vm.form = ["*",{type: "submit",title: "Save"}];
@@ -120,27 +118,16 @@
 		vm.selectTimeoutObj = function(value){
 			vm.timeout_content = vm.edit_detail.timeout_list[value];
 		};
-	}
-	
-	function formatHtmlDirectiveMethod($sce){
-		return {
-			restrict : "E"	,
-			replace  : true ,
-			scope    : {
-				data : "="
-			},
-			template : '<textarea ng-bind="htmlContent" cols="75" rows="15"></textarea>',
-			link     : function(scope){
-				scope.setHtmlContent = function(data){
-					scope.htmlContent = $sce.trustAsHtml(data);	
-				};
-				
-				scope.$watch('data', function(n){
-					if(n){
-						scope.setHtmlContent(n);
-					}
-				});
-			}
-		};	
+		
+		vm.setHtmlContent = function(data){
+			vm.model.html = $sce.trustAsHtml(data);
+		};
+		
+		vm.setJsContent = function(data){
+			vm.model.js = $sce.trustAsHtml(data);
+		};
+		
+		vm.setHtmlContent(vm.model.html);
+		vm.setJsContent(vm.model.js);
 	}
 })(app);

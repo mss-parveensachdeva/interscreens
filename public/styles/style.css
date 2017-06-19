@@ -130,3 +130,8 @@ body {
     float: left;
     padding-top: 35px;
 }
+
+.htmlPreview {
+    border: 1px dashed;
+    border-radius: 3px;
+}

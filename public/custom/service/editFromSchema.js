@@ -81,11 +81,13 @@
 					},
 					html: {
 						type: "string",
-						title: "Html code"
+						title: "Html code",
+						readOnly: true
 					},
 					js: {
 						type: "string",
-						title: "JS code"
+						title: "JS code",
+						readOnly: true
 					},
 				}
 			};
