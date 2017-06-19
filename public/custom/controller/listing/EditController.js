@@ -66,16 +66,8 @@
 					vm.schema = EDIT_FORM_SCHEMA.TemplateSchema();
 					break;
 
-				case 'details':
-					vm.schema = EDIT_FORM_SCHEMA.DetailSchema();
-					break;
-
 				case 'task_table':
 					vm.schema = EDIT_FORM_SCHEMA.TaskTableSchema(doc);
-					break;
-
-				case 'timeout':
-					vm.schema = EDIT_FORM_SCHEMA.TimeoutSchema();
 					break;
 
 				case 'location':
