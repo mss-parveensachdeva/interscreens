@@ -1,4 +1,3 @@
-
 # DoMeNow app Internal screens
 By following this guide, you'll set up a development environment, deploy an app locally and on Bluemix, and integrate a Bluemix database service in your app.
 
@@ -11,7 +10,7 @@ You'll need a [Bluemix account](https://console.ng.bluemix.net/registration/), [
 * [Prepare the app for deployment](#prepare_app_deployment)
 * [Add a database](#add_a_data)
 * [Use the database](#user_database_app)
-                 
+  
 <a name="clone_internal_screens"></a>
 ## 1. Clone the internal screen app
 
@@ -138,4 +137,3 @@ We're now going to update your local code to point to this database. We'll creat
   ```
   cf push
   ```
-     
