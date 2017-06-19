@@ -3,19 +3,19 @@
 	.controller('listingController', listingControllerMethod)
 	.directive('showName', showNameDirectiveMethod);
 	
-	listingControllerMethod.$inject = ['$http','loaderService','$state', 'LocalStorage', '$stateParams'];
+	listingControllerMethod.$inject = ['$http','loaderService','$state', 'LocalStorage', '$stateParams', 'DB_SERVICE'];
 	showNameDirectiveMethod.$inject = [];
 	
-	function listingControllerMethod($http, loaderService, $state, LocalStorage, $stateParams){
+	function listingControllerMethod($http, loaderService, $state, LocalStorage, $stateParams, DB_SERVICE){
 		if(!LocalStorage.getData('token')) {
 			$state.go('login');
 			return false ;
 		}
-		
 		var vm = this ;
 			vm.currentPage = 0;
 			vm.pageSize = 5;
-
+			vm.selected_database = DB_SERVICE.get();
+			
 			vm.get_list = function(){
 				if($stateParams.table_name){
 					LocalStorage.setData('table_name', $stateParams.table_name);

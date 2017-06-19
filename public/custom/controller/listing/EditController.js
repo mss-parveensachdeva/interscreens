@@ -2,11 +2,12 @@
 	app
 	.controller('EditListingController', EditListingControllerMethod);
 	
-	EditListingControllerMethod.$inject = ['$scope', 'EDIT_FORM_SCHEMA', '$state', 'loaderService', '$http', 'ngToast', 'LocalStorage', 'edit_data', '$sce'];
+	EditListingControllerMethod.$inject = ['$scope', 'EDIT_FORM_SCHEMA', '$state', 'loaderService', '$http', 'ngToast', 'LocalStorage', 'edit_data', '$sce', 'DB_SERVICE'];
 	
-	function EditListingControllerMethod($scope, EDIT_FORM_SCHEMA, $state, loaderService, $http, ngToast, LocalStorage, edit_data, $sce){
+	function EditListingControllerMethod($scope, EDIT_FORM_SCHEMA, $state, loaderService, $http, ngToast, LocalStorage, edit_data, $sce, DB_SERVICE){
 		var vm = this ;
 		vm.timeout_count = [] ;
+		vm.selected_database = DB_SERVICE.get();
 		vm.form = ["*",{type: "submit",title: "Save"}];
 		
 		vm.setDataDynamic = function(obj){
@@ -80,7 +81,6 @@
 			}
 		};
 		
-		console.log("edit_data >>", edit_data );
 		vm.edit_detail = vm.setDataDynamic(edit_data) ;
 		vm.timeout_content = vm.setContent(vm.edit_detail);
 		vm.selectedValue = 0 ;

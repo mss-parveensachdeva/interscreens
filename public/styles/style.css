@@ -135,3 +135,8 @@ body {
     border: 1px dashed;
     border-radius: 3px;
 }
+
+.padding {
+    padding-top: 20px;
+    width: 100%;
+}

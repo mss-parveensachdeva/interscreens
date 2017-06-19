@@ -1,11 +1,12 @@
 (function(app, undefined){
 	app.controller('listRecordController', listRecordControllerMethod);
 	
-	listRecordControllerMethod.$inject = ['$stateParams', '$state', 'LocalStorage', 'RECORD_LIST_SCHEMA', 'data'];
+	listRecordControllerMethod.$inject = ['$stateParams', '$state', 'LocalStorage', 'RECORD_LIST_SCHEMA', 'data', 'DB_SERVICE'];
 	
-	function listRecordControllerMethod($stateParams, $state, LocalStorage, RECORD_LIST_SCHEMA, data){
+	function listRecordControllerMethod($stateParams, $state, LocalStorage, RECORD_LIST_SCHEMA, data, DB_SERVICE){
 		var vm = this ;
 		vm.timeout_count = [] ;
+		vm.selected_database = DB_SERVICE.get();
 		vm.form = ["*",{type: "submit", title: "Save", readonly: true}];
 		
 		vm.setDataDynamic = function(obj){

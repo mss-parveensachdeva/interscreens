@@ -2,12 +2,13 @@
 	app
 	.controller('ListRecordController', recordControlerMethod);
 	
-	recordControlerMethod.$inject = ['list_record', '$state', 'LocalStorage', '$stateParams'];
+	recordControlerMethod.$inject = ['list_record', '$state', 'LocalStorage', '$stateParams', 'DB_SERVICE'];
 	
-	function recordControlerMethod(list_record, $state, LocalStorage, $stateParams){
+	function recordControlerMethod(list_record, $state, LocalStorage, $stateParams, DB_SERVICE){
 		var vm = this;
 			vm.currentPage = 0;
 			vm.pageSize = 5;
+			vm.selected_database = DB_SERVICE.get();
 		
 		if(Object.keys(list_record).length){
 			LocalStorage.setData('incoming_parameters', { from_id: $stateParams.data[0].from_id, from_table: $stateParams.data[0].from_table, from_field: $stateParams.data[0].from_field, to_table:$stateParams.data[0].to_table, to_id:$stateParams.data[0].to_id, isSelected: false });

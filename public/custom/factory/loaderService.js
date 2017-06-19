@@ -10,7 +10,7 @@
 			},
 			hide: function(){
 				$rootScope.loaderIsDisplay = false ;
-			}
+			},
 		};
 	}
 })();

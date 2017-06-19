@@ -1,7 +1,12 @@
 
 <div class="col-lg-12">
 	<div class="row">
-		<div class="col-md-9"></div>
+		<div class="col-md-9">
+			<div class="col-sm-4">
+				<b>Selected Database:</b><code>{{record.selected_database}}</code>
+			</div>
+			<div class="col-sm-8"></div>
+		</div>
 		<div class="col-md-3"><a ui-sref="edit_record" class="btn btn-warning">Back</a></div>
 	</div>
 	<div class="row" ng-if="record.table_name === 'template'">

@@ -2,13 +2,13 @@
 	app
 	.controller('AddRecordController', AddRecordControllerMethod);
 	
-	AddRecordControllerMethod.$inject = ['ADD_FORM_SCHEMA', '$scope'];
+	AddRecordControllerMethod.$inject = ['ADD_FORM_SCHEMA', '$scope', 'DB_SERVICE'];
 	
-	function AddRecordControllerMethod(ADD_FORM_SCHEMA, $scope){
+	function AddRecordControllerMethod(ADD_FORM_SCHEMA, $scope, DB_SERVICE){
 		var vm = this ;
 		$scope.selectTable = "users" ;
 		vm.schema = ADD_FORM_SCHEMA.UserSchema(); 
-
+		vm.selected_database = DB_SERVICE.get();
 		//User from sechema start from here....
 		$scope.calculateSchema = function(type){
 			switch(type) {
