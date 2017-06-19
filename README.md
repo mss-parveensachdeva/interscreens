@@ -104,7 +104,7 @@ Next, we'll add a NoSQL database to this application and set up the application 
 
 We're now going to update your local code to point to this database. We'll create a json file that will store the credentials for the services the application will use. This file will get used ONLY when the application is running locally. When running in Bluemix, the credentials will be read from the VCAP_SERVICES environment variable.
 
-1. Update a file called `config.json` in the `/root/interscreens/config/default-db-config.json` directory with the following content:
+1. Update a file called `default-db-config.json` in the `/root/interscreens/config/default-db-config.json` directory with the following content:
   ```
   {
     "services": {
