@@ -1,5 +1,10 @@
 var master_table = require('../api/controllers/api_controller');
 module.exports = function(router){
+	
+	router.post('/api/copy_record', function(req, res){
+		return master_table.copy_record(req, res);
+	});
+	
 	router.get('/api/db_connection/:db_name', function(req, res){
 		return master_table.serDefaultDbConnection(req, res);	
 	});

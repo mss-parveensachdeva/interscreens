@@ -20,6 +20,9 @@
 					default:
 						return 'Default';
 				}
+			},
+			unSafeGet: function(){
+				return LocalStorage.getData('db_connection');
 			}
 		};
 	}

@@ -8,10 +8,31 @@
 		<div class="col-md-3"><a ui-sref="listing" class="btn btn-warning">Back</a></div>
 	</div>
 	<div class="row" ng-if="EC.edit_detail.table === 'template'" ng-include="'partials/master_table/template_table/template_edit.html'"></div>
-	<div class="row" ng-if="EC.edit_detail.table === 'details'" ng-include="'partials/master_table/details_table/details_edit.html'"></div>
+	<!--<div class="row" ng-if="EC.edit_detail.table === 'details'" ng-include="'partials/master_table/details_table/details_edit.html'"></div>-->
 	<div class="row" ng-if="EC.edit_detail.table === 'task_table'" ng-include="'partials/master_table/task_table/task_table_edit.html'"></div>
-	<div class="row" ng-if="EC.edit_detail.table === 'user_task'" ng-include="'partials/master_table/user_task_table/user_task_edit.html'"></div>
+	<!--<div class="row" ng-if="EC.edit_detail.table === 'user_task'" ng-include="'partials/master_table/user_task_table/user_task_edit.html'"></div>-->
 	<div class="row" ng-if="EC.edit_detail.table === 'users'" ng-include="'partials/master_table/users_table/users_edit.html'"></div>
 	<div class="row" ng-if="EC.edit_detail.table === 'timeout'" ng-include="'partials/master_table/timeout_table/timeout_edit.html'"></div>
 	<div class="row" ng-if="EC.edit_detail.table === 'location'" ng-include="'partials/master_table/location_table/location_edit.html'"></div>
+	
+	<!--- show copy button> -->
+	<div class="row panel panel-default panel-body">
+		<div class="col-md-6"></div>
+		<div class="col-md-6">
+			<div class="">
+				<div class="col-sm-4"><strong><code>Copy To</code></strong>:</div>
+				<div class="col-sm-4">
+					<select class="form-control" ng-model="EC.selected_db_copy">
+						<option selected="selected" value="">To Databse</option>
+						<option value="default">Default</option>
+						<option value="dev">Development</option>
+						<option value="live">Live</option>
+						<option value="test">Test</option>
+					</select>
+				</div>
+				<div class="col-sm-4"><button class="btn btn-primary" ng-click="EC.CopyRecord(EC.edit_detail, EC.selected_db_copy);">Copy</button></div>
+			</div>
+		</div>
+	</div>
+	<div class="padding"></div>
 </div>

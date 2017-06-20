@@ -5,6 +5,12 @@ var	master_table = require('../models/default_master_table'),
 	pkgcloud     = require('pkgcloud');
 
 module.exports = {
+	copy_record: function(req, res){
+		if(_.isEmpty(req.body)) return res.status(400).json({status: 400, error: true, msg: "Request body must be required.", data: null});
+		
+		console.log("req.body >>", req.body);
+		return res.status(200).json({status: 200, error: true, msg: "Record updated successfully", data: req.body});
+	},
 	serDefaultDbConnection: function(req, res){
 		var params = req.params;
 		

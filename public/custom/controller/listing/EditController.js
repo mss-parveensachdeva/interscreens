@@ -7,6 +7,7 @@
 	function EditListingControllerMethod($scope, EDIT_FORM_SCHEMA, $state, loaderService, $http, ngToast, LocalStorage, edit_data, $sce, DB_SERVICE){
 		var vm = this ;
 		vm.timeout_count = [] ;
+		vm.selected_db_copy = "" ;
 		vm.selected_database = DB_SERVICE.get();
 		vm.form = ["*",{type: "submit",title: "Save"}];
 		
@@ -121,5 +122,25 @@
 		
 		vm.setHtmlContent(vm.model.html);
 		vm.setJsContent(vm.model.js);
+		
+		vm.CopyRecord = function(record, db){
+			var selected_db = DB_SERVICE.unSafeGet();
+			
+			if(db === selected_db){
+				ngToast.warning({
+					content: "Sorry!!! Can not copy to same database."	
+				});
+				return false ;
+			}
+			console.log("db >>>", db);
+			console.log("record>>>>>", record);
+			$http
+			.post('/api/copy_record', record)
+			.then(function(response){
+				console.log("copy_record", response);
+			}, function(error){
+				console.log("copy_record", error);
+			});
+		};
 	}
 })(app);
