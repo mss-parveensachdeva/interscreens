@@ -29,6 +29,20 @@ module.exports = {
 	copy_record: function(req, res){
 		if(_.isEmpty(req.body)) return res.status(400).json({status: 400, error: true, msg: "Request body must be required.", data: null});
 		
+		var params = _.pick(req.body, 'selected_db', 'obj');
+		if(_.isEmpty(params.selected_db)) return res.status(400).json({status: 400, error: true, msg: "Target db must be required for copy task", data: null});
+		if(_.isEmpty(params.obj)) return res.status(400).json({status:400, error: true, msg: "Data for copy task is required.", data: null});
+		
+		var selected_db = SelectDatabase(params.selected_db);
+		delete params.obj._rev;
+		selected_db.insert(params.obj, function(err, inserted_content){
+			if(err){
+				return res.status(500).json({status: 500, error: true, msg: "Something happned wrong", data: err});
+			}else {
+				return res.status(200).json({status: 201, error: false, msg: `Record copy to target_db(${params.selected_db}) successfully`, data: inserted_content});
+			}
+		});
+		
 		console.log("req.body >>", req.body);
 		return res.status(200).json({status: 200, error: true, msg: "Record updated successfully", data: req.body});
 	},
@@ -93,7 +107,7 @@ module.exports = {
 	update_document: function(req, res){
 		var body = req.body ;
 		master_table.insert(body, function(err, updated_content){
-			if(err) return res.status(500).json(err);
+			if(err) res.status(500).json({status: 500, error: true, msg: "Something happned wrong", data: err});
 			return res.status(200).json(updated_content);
 		});
 	},

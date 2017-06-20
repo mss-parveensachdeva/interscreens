@@ -135,7 +135,7 @@
 			console.log("db >>>", db);
 			console.log("record>>>>>", record);
 			$http
-			.post('/api/copy_record', record)
+			.post('/api/copy_record', {selected_db: db, obj: record})
 			.then(function(response){
 				console.log("copy_record", response);
 			}, function(error){
