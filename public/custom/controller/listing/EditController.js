@@ -2,9 +2,9 @@
 	app
 	.controller('EditListingController', EditListingControllerMethod);
 	
-	EditListingControllerMethod.$inject = ['$scope', 'EDIT_FORM_SCHEMA', '$state', 'loaderService', '$http', 'ngToast', 'LocalStorage', 'edit_data', '$sce', 'DB_SERVICE'];
+	EditListingControllerMethod.$inject = ['$scope', 'EDIT_FORM_SCHEMA', '$state', 'loaderService', '$http', 'ngToast', 'LocalStorage', 'edit_data', '$sce', 'DB_SERVICE', 'loaderService'];
 	
-	function EditListingControllerMethod($scope, EDIT_FORM_SCHEMA, $state, loaderService, $http, ngToast, LocalStorage, edit_data, $sce, DB_SERVICE){
+	function EditListingControllerMethod($scope, EDIT_FORM_SCHEMA, $state, loaderService, $http, ngToast, LocalStorage, edit_data, $sce, DB_SERVICE, loaderService){
 		var vm = this ;
 		vm.timeout_count = [] ;
 		vm.selected_db_copy = "" ;
@@ -124,6 +124,7 @@
 		vm.setJsContent(vm.model.js);
 		
 		vm.CopyRecord = function(record, db){
+			loaderService.show();
 			var output = angular.copy(record);
 			var selected_db = DB_SERVICE.unSafeGet();
 			
@@ -142,11 +143,23 @@
 			$http
 			.post('/api/copy_record', {selected_db: db, obj: output})
 			.then(function(response){
+				loaderService.hide();
 				if(response.data){
 					if(response.data.status === 201){
-						ngToast.info({
-							content: "Document copy to target db successfully!!!"	
-						});
+						if(response.data.data){
+							var d = response.data.data.data;
+							for(var i=0; i<d.length; i++){
+								if(d[i].isSaved){
+									ngToast.info({
+										content: d[i].reason	
+									});
+								}else{
+									ngToast.warning({
+										content: d[i].reason	
+									});
+								}
+							}
+						}
 					}else{
 						ngToast.warning({
 							content: "Some error occured while coping to target_db. Please try again after sometime Thanks !!!"	

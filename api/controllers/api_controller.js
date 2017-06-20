@@ -38,7 +38,14 @@ module.exports = {
 	
 		switch(params.obj.table){
 			case "task_table":
-				Service.copy_task_table(master_table, selected_db, params.obj, function(){});
+				Service.copy_task_table(master_table, selected_db, params.obj, function(err, insert_res){
+					if(err){
+						console.log("err", err);
+						return res.status(500).json(err);
+					}else{
+						return res.status(201).json(insert_res);
+					}
+				});
 				break;
 			case "template":
 				Service.copy_template_table(master_table, selected_db, params.obj, function(err, insert_res){
@@ -69,7 +76,6 @@ module.exports = {
 		var query = `table:${params.table_name} AND _id:${params.id}`;
 
 		master_table.search('filterBy', 'filterBy', {q: query, include_docs: true}, (err, record)=>{
-			console.log("records >>>>", record.rows);
 			if(err) return res.status(500).json(err);
 			
 			if(_.isEmpty(record.rows)){
