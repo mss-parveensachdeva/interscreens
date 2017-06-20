@@ -35,28 +35,25 @@ module.exports = {
 		if(_.isEmpty(params.obj)) return res.status(400).json({status:400, error: true, msg: "Data for copy task is required.", data: null});
 		
 		var selected_db = SelectDatabase(params.selected_db);
-	
-		switch(params.obj.table){
-			case "task_table":
-				Service.copy_task_table(master_table, selected_db, params.obj, function(err, insert_res){
-					if(err){
-						console.log("err", err);
-						return res.status(500).json(err);
-					}else{
-						return res.status(201).json(insert_res);
-					}
-				});
-				break;
-			case "template":
-				Service.copy_template_table(master_table, selected_db, params.obj, function(err, insert_res){
-					if(err){
-						console.log("err", err);
-						return res.status(500).json(err);
-					}else{
-						return res.status(201).json(insert_res);
-					}
-				});
-				break;
+		
+		if(params.obj.table === "task_table"){
+			Service.copy_task_table(master_table, selected_db, params.obj, function(err, insert_res){
+				if(err){
+					console.log("err", err);
+					return res.status(500).json(err);
+				}else{
+					return res.status(201).json(insert_res);
+				}
+			});
+		}else{
+			Service.copy_table(master_table, selected_db, params.obj, function(err, insert_res){
+				if(err){
+					console.log("err", err);
+					return res.status(500).json(err);
+				}else{
+					return res.status(201).json(insert_res);
+				}
+			});
 		}
 	},
 	serDefaultDbConnection: function(req, res){

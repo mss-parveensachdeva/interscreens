@@ -224,14 +224,14 @@ module.exports = {
 			return;
 		});
 	},
-	copy_template_table: function(from_db, target_db, obj, callback){
+	copy_table: function(from_db, target_db, obj, callback){
 		delete obj._rev;
 		target_db.insert(obj, function(err, inserted_content){
 			if(err){
 				callback({status: 500, error: true, msg: "Something happned wrong", data: err}, null);
 				return;
 			}else {
-				callback(null, {status: 201, error: false, msg: `Record copy to target_db successfully`, data: inserted_content});
+				callback(null, {status: 201, error: false, msg: `Record copy to target_db successfully`, data: {error: null, data: [{isSaved:true, reason: `${obj.table.toUpperCase()} Record copy to target_db successfully!!!`, data: inserted_content}]}});
 				return;
 			}
 		});
