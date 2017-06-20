@@ -23,6 +23,16 @@
 			},
 			unSafeGet: function(){
 				return LocalStorage.getData('db_connection');
+			},
+			codeEscape: function(res){
+				res = res.replace(/\\/g , "\\\\");
+				res = res.replace(/"/g , '\\"');
+				res = res.replace(/\t/g , "\\t");
+				res = res.replace(/\v/g , "\\v");
+				res = res.replace(/\n\r/g , "\\n\\r");
+				res = res.replace(/\n/g , "\\n");
+				res = res.replace(/\r/g , "\\r");
+				return res;
 			}
 		};
 	}

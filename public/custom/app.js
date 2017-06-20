@@ -61,6 +61,7 @@ var app = angular.module('listingAppModule', ['ui.router', 'schemaForm', 'ngToas
 						return $http
 						.get('/api/record_by_id/'+ obj.from_table + '/' + obj.from_id)
 						.then(function(record){
+							console.log("record.data", record);
 							if(record.data.data === null){
 								return {} ;
 							}else{

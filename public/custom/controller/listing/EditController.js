@@ -124,6 +124,7 @@
 		vm.setJsContent(vm.model.js);
 		
 		vm.CopyRecord = function(record, db){
+			var output = angular.copy(record);
 			var selected_db = DB_SERVICE.unSafeGet();
 			
 			if(db === selected_db){
@@ -132,14 +133,31 @@
 				});
 				return false ;
 			}
-			console.log("db >>>", db);
-			console.log("record>>>>>", record);
+			
+			if(output.table === "template") {
+				output.html = DB_SERVICE.codeEscape(output.html.toString());
+				output.js   = DB_SERVICE.codeEscape(output.js.toString());
+			}
+
 			$http
-			.post('/api/copy_record', {selected_db: db, obj: record})
+			.post('/api/copy_record', {selected_db: db, obj: output})
 			.then(function(response){
-				console.log("copy_record", response);
+				if(response.data){
+					if(response.data.status === 201){
+						ngToast.info({
+							content: "Document copy to target db successfully!!!"	
+						});
+					}else{
+						ngToast.warning({
+							content: "Some error occured while coping to target_db. Please try again after sometime Thanks !!!"	
+						});
+					}
+				}
 			}, function(error){
-				console.log("copy_record", error);
+				console.warning(error);
+				ngToast.warning({
+					content: "Some error occured while coping to target_db. Please try again after sometime Thanks !!!"	
+				});
 			});
 		};
 	}

@@ -1,12 +1,13 @@
 var	master_table = require('../models/default_master_table'),
 	_			 = require('lodash'),
 	path 		 = require('path'),
+	Service 	 = require('../service/db_service'),
 	config		 = require(path.join(__dirname,'../../config/default-db-config.json'));
 	pkgcloud     = require('pkgcloud');
 
 
-function SelectDatabase(params){
-	switch(params.db_name){
+function SelectDatabase(db_name){
+	switch(db_name){
 		case "default":
 			console.log("Comes in Default case");
 			return require('../models/default_master_table');
@@ -34,33 +35,41 @@ module.exports = {
 		if(_.isEmpty(params.obj)) return res.status(400).json({status:400, error: true, msg: "Data for copy task is required.", data: null});
 		
 		var selected_db = SelectDatabase(params.selected_db);
-		delete params.obj._rev;
-		selected_db.insert(params.obj, function(err, inserted_content){
-			if(err){
-				return res.status(500).json({status: 500, error: true, msg: "Something happned wrong", data: err});
-			}else {
-				return res.status(200).json({status: 201, error: false, msg: `Record copy to target_db(${params.selected_db}) successfully`, data: inserted_content});
-			}
-		});
-		
-		console.log("req.body >>", req.body);
-		return res.status(200).json({status: 200, error: true, msg: "Record updated successfully", data: req.body});
+	
+		switch(params.obj.table){
+			case "task_table":
+				Service.copy_task_table(master_table, selected_db, params.obj, function(){});
+				break;
+			case "template":
+				Service.copy_template_table(master_table, selected_db, params.obj, function(err, insert_res){
+					if(err){
+						console.log("err", err);
+						return res.status(500).json(err);
+					}else{
+						return res.status(201).json(insert_res);
+					}
+				});
+				break;
+		}
 	},
 	serDefaultDbConnection: function(req, res){
 		var params = req.params;
 		if(_.isEmpty(params)) return res.status(400).json({status:400, error: true, msg: "Request params are missing.", data: null});
 		if(_.isEmpty(params.db_name)) return res.status(400).json({status:400, error: true, msg: "Request params db_name are missing.", data: null});
 		master_table = {} ;
-		master_table = SelectDatabase(params);
+		master_table = SelectDatabase(params.db_name);
 		return res.status(200).json({status: 200, error: false, msg: "Database set successfully"});
 	},
+	
 	record_by_id: function(req, res){
 		var params = req.params;
 		if(!params.table_name) return res.status(400).json({status: 400, error: true, msg:"`table_name` must be required", data: null});
 		if(!params.id) return res.status(400).json({status: 400, error: true, msg:"`id` must be required", data: null});
 		
 		var query = `table:${params.table_name} AND _id:${params.id}`;
+
 		master_table.search('filterBy', 'filterBy', {q: query, include_docs: true}, (err, record)=>{
+			console.log("records >>>>", record.rows);
 			if(err) return res.status(500).json(err);
 			
 			if(_.isEmpty(record.rows)){
