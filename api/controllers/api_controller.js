@@ -4,6 +4,27 @@ var	master_table = require('../models/default_master_table'),
 	config		 = require(path.join(__dirname,'../../config/default-db-config.json'));
 	pkgcloud     = require('pkgcloud');
 
+
+function SelectDatabase(params){
+	switch(params.db_name){
+		case "default":
+			console.log("Comes in Default case");
+			return require('../models/default_master_table');
+		case "dev":
+			console.log("Comes in dev case");
+			return require('../models/dev_master_table');
+		case "live":
+			console.log("Comes in live case");
+			return require('../models/live_master_table');
+		case "test":
+			console.log("Comes in test case");
+			return require('../models/test_master_table');
+		default:
+			console.log("Comes in Unmatched case");
+			return require('../models/default_master_table');
+	}
+}
+
 module.exports = {
 	copy_record: function(req, res){
 		if(_.isEmpty(req.body)) return res.status(400).json({status: 400, error: true, msg: "Request body must be required.", data: null});
@@ -13,39 +34,11 @@ module.exports = {
 	},
 	serDefaultDbConnection: function(req, res){
 		var params = req.params;
-		
 		if(_.isEmpty(params)) return res.status(400).json({status:400, error: true, msg: "Request params are missing.", data: null});
 		if(_.isEmpty(params.db_name)) return res.status(400).json({status:400, error: true, msg: "Request params db_name are missing.", data: null});
-		
-		switch(params.db_name){
-			case "default":
-				console.log("Comes in Default case");
-				msater_table = {};
-				master_table = require('../models/default_master_table');
-				break;
-			case "dev":
-				console.log("Comes in dev case");
-				msater_table = {};
-				master_table = require('../models/dev_master_table');
-				break;
-			case "live":
-				console.log("Comes in live case");
-				msater_table = {};
-				master_table = require('../models/live_master_table');
-				break;
-			case "test":
-				console.log("Comes in test case");
-				msater_table = {};
-				master_table = require('../models/test_master_table');
-				break;
-			default:
-				console.log("Comes in Unmatched case");
-				msater_table = {};
-				master_table = require('../models/default_master_table');
-				break;
-		}
-		
-		return res.status(200).json({status: 200, error: false, msg: "Database set successfully", data: master_table});
+		master_table = {} ;
+		master_table = SelectDatabase(params);
+		return res.status(200).json({status: 200, error: false, msg: "Database set successfully"});
 	},
 	record_by_id: function(req, res){
 		var params = req.params;
